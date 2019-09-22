@@ -30,3 +30,14 @@ Let's go back to our index.html and run it.
 When we do, we can see that we have this JSON object that's been put inside our div.
 So that's working as we expected.
 Now that we have data displaying in our browser and it's working okay, we've covered how to do this, but in our next video, we'll step through the code and see why it works.
+
+Why doesn't our "console.log(data)" work?
+Well there's a very good reason for this which is that the "onreadystatechange" function only sets the data variable to contain the response text when the ready state equals 4 and the status equals 200.
+Our function has been called five times by the time that our data variable is set, whereas our "console.log" is only ever called once.
+And that will be right after we've run "xhr.send".
+So this means that when we run "console.log(data)", it doesn't have anything in there yet.
+Data is not set until after "console.log" has been called, which is why we're getting a response of undefined.
+The problem with this is it means that all of the work we need to do with data would have to be done inside the "xhr.onreadystatechange" function, which could make things really messy and complicated because all of the code for our application could potentially end up inside this function.
+So how do we get the data out of here?
+Well one thing that we could do is create a separate function.
+And we can parse our data to that function.
